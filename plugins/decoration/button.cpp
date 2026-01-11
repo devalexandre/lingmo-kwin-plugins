@@ -75,28 +75,23 @@ void Button::paint(QPainter *painter, const QRectF &repaintArea)
     auto c = decoration->window().toStrongRef().data();
 #else
     auto c = decoration->window();
-#endif 
-    const bool isDarkMode = decoration->darkMode();
+#endif
     const QRect &rect = geometry().toRect();
 
     painter->save();
-    painter->setRenderHint(QPainter::SmoothPixmapTransform, false);
     painter->setRenderHints(QPainter::Antialiasing, true);
 
-    QRect btnRect(0, 0, 26 * decoration->devicePixelRatio(),
-                        26 * decoration->devicePixelRatio());
-    btnRect.moveCenter(rect.center());
+    // Lingmo Beautiful Buttons - colored circular buttons
+    const int circleSize = 12 * decoration->devicePixelRatio();
+    QRect circleRect(0, 0, circleSize, circleSize);
+    circleRect.moveCenter(rect.center());
 
-    QRect imgRect(0, 0, 24 * decoration->devicePixelRatio(),
-                        24 * decoration->devicePixelRatio());
-    imgRect.moveCenter(rect.center());
+    painter->setPen(Qt::NoPen);
 
-    if (isHovered() || isPressed()) {
-        painter->setPen(Qt::NoPen);
-        painter->setBrush(isDarkMode ? isPressed() ? QColor(255, 255, 255, 255 * 0.1) : QColor(255, 255, 255, 255 * 0.15)
-                                     : isPressed() ? QColor(0, 0, 0, 255 * 0.15) : QColor(0, 0, 0, 255 * 0.1));
-        painter->drawRoundedRect(btnRect.adjusted(2, 2, -2, -2), btnRect.height() / 2, btnRect.height() / 2);
-    }
+    QColor buttonColor;
+    QColor borderColor;
+    QColor symbolColor;
+    bool drawSymbol = isHovered() || isPressed();
 
     switch (type()) {
     case KDecoration3::DecorationButtonType::Menu: {
@@ -107,18 +102,74 @@ void Button::paint(QPainter *painter, const QRectF &repaintArea)
         break;
     }
     case KDecoration3::DecorationButtonType::Minimize: {
-        painter->drawPixmap(imgRect, decoration->minimizeBtnPixmap());
+        // Yellow button (Minimize) - #FDBE41
+        buttonColor = QColor(253, 190, 65);
+        borderColor = QColor(227, 164, 41);
+        symbolColor = QColor(149, 95, 19);
+
+        painter->setBrush(buttonColor);
+        painter->setPen(QPen(borderColor, 0.5));
+        painter->drawEllipse(circleRect);
+
+        if (drawSymbol) {
+            painter->setPen(QPen(symbolColor, 1.5 * decoration->devicePixelRatio()));
+            int offset = circleSize / 4;
+            QPoint center = circleRect.center();
+            // Draw horizontal line
+            painter->drawLine(center.x() - offset, center.y(),
+                            center.x() + offset, center.y());
+        }
         break;
     }
     case KDecoration3::DecorationButtonType::Maximize: {
-        if (isChecked())
-            painter->drawPixmap(imgRect, decoration->restoreBtnPixmap());
-        else
-            painter->drawPixmap(imgRect, decoration->maximizeBtnPixmap());
+        // Green button (Maximize/Restore) - #34C759
+        buttonColor = QColor(52, 199, 89);
+        borderColor = QColor(38, 175, 67);
+        symbolColor = QColor(18, 86, 35);
+
+        painter->setBrush(buttonColor);
+        painter->setPen(QPen(borderColor, 0.5));
+        painter->drawEllipse(circleRect);
+
+        if (drawSymbol) {
+            painter->setPen(QPen(symbolColor, 1.5 * decoration->devicePixelRatio()));
+            int offset = circleSize / 4;
+            QPoint center = circleRect.center();
+
+            if (isChecked()) {
+                // Restore: two overlapping squares (small icon)
+                QRect smallRect(center.x() - offset/2, center.y() - offset/2, offset, offset);
+                painter->drawRect(smallRect);
+            } else {
+                // Maximize: diagonal arrows pointing outward
+                painter->drawLine(center.x() - offset, center.y() - offset,
+                                center.x() + offset, center.y() + offset);
+                painter->drawLine(center.x() + offset, center.y() - offset,
+                                center.x() - offset, center.y() + offset);
+            }
+        }
         break;
     }
     case KDecoration3::DecorationButtonType::Close: {
-        painter->drawPixmap(imgRect, decoration->closeBtnPixmap());
+        // Red button (Close) - #FC5F54
+        buttonColor = QColor(252, 95, 84);
+        borderColor = QColor(226, 71, 61);
+        symbolColor = QColor(120, 24, 21);
+
+        painter->setBrush(buttonColor);
+        painter->setPen(QPen(borderColor, 0.5));
+        painter->drawEllipse(circleRect);
+
+        if (drawSymbol) {
+            painter->setPen(QPen(symbolColor, 1.5 * decoration->devicePixelRatio()));
+            int offset = circleSize / 4;
+            QPoint center = circleRect.center();
+            // Draw X
+            painter->drawLine(center.x() - offset, center.y() - offset,
+                            center.x() + offset, center.y() + offset);
+            painter->drawLine(center.x() + offset, center.y() - offset,
+                            center.x() - offset, center.y() + offset);
+        }
         break;
     }
     default:

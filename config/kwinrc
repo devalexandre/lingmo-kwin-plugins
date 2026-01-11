@@ -64,7 +64,7 @@ Top=None
 
 [org.kde.kdecoration3]
 BorderSize=Normal
-ButtonsOnLeft=
-ButtonsOnRight=HIAX
+ButtonsOnLeft=XIA
+ButtonsOnRight=
 library=org.lingmo.decoration
 theme=
