@@ -1,0 +1,20 @@
+{
+    "KPackageStructure": "KWin/Script",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "devalexandre",
+                "Email": "alexandre@dev2learn.com"
+            }
+        ],
+        "Description": "Hot corners that open the Lingmo launcher or lock the screen",
+        "EnabledByDefault": true,
+        "Icon": "preferences-desktop-screen-edges",
+        "Id": "linghotcorners",
+        "License": "GPLv3",
+        "Name": "LingmoOS Hot Corners",
+        "Version": "0.1"
+    },
+    "X-Plasma-API": "javascript",
+    "X-Plasma-MainScript": "code/main.js"
+}

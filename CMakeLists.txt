@@ -14,7 +14,7 @@ add_subdirectory(plugins)
 install(FILES config/kwinrc DESTINATION /etc/xdg)
 install(FILES config/kwinrulesrc DESTINATION /etc/xdg)
 
-install(DIRECTORY scripts/linglauncher DESTINATION /usr/share/kwin/scripts)
+install(DIRECTORY scripts/linglauncher scripts/linghotcorners DESTINATION /usr/share/kwin/scripts)
 install(DIRECTORY scripts/ling_squash DESTINATION /usr/share/kwin/effects)
 install(DIRECTORY scripts/ling_scale DESTINATION /usr/share/kwin/effects)
 install(DIRECTORY scripts/ling_popups DESTINATION /usr/share/kwin/effects)
