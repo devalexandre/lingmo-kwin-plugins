@@ -13,6 +13,7 @@
         ],
         "Category": "Appearance",
         "Description": "Make popups smoothly fade in and out when they are shown or hidden",
+        "Description[pt_BR]": "Faz os pop-ups aparecerem e sumirem suavemente ao serem mostrados ou ocultados",
         "EnabledByDefault": true,
         "Id": "lingmo_popups",
         "Version": "1.0"

@@ -14,6 +14,7 @@
         "Icon": "preferences-system-windows-switcher-big-icons",
         "Id": "ling_thumbnail",
         "Name": "Lingmo Thumbnail Grid",
+        "Name[pt_BR]": "Grade de miniaturas do Lingmo",
         "Version": "5",
         "Website": "https://github.com/Zren/kwin-tabbox-thumbnail_grid"
     },
