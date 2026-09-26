@@ -1,0 +1,22 @@
+{
+    "KPackageStructure": "KWin/WindowSwitcher",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "zrenfire@gmail.com",
+                "Name": "Chris Holland"
+            },
+            {
+                "Name": "devalexandre",
+                "Email": "alexandre@dev2learn.com"
+            }
+        ],
+        "Icon": "preferences-system-windows-switcher-big-icons",
+        "Id": "ling_thumbnail",
+        "Name": "Lingmo Thumbnail Grid",
+        "Version": "5",
+        "Website": "https://github.com/Zren/kwin-tabbox-thumbnail_grid"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml"
+}

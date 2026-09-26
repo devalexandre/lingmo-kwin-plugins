@@ -63,5 +63,9 @@ target_link_libraries (lingdecoration
         KDecoration3::KDecoration
 )
 
+# KPluginMetaData::findPluginById() looks the plugin up by file name, which must
+# match the "Id" in lingmoos.json, or KWin reports "Could not locate decoration plugin".
+set_target_properties(lingdecoration PROPERTIES OUTPUT_NAME "org.lingmo.decoration" PREFIX "")
+
 install (TARGETS lingdecoration
          DESTINATION ${QT_PLUGINS_DIR}/org.kde.kdecoration3)

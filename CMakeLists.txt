@@ -9,7 +9,8 @@ message(STATUS "ECM version: ${ECM_VERSION}")
 
 add_subdirectory(plugins)
 
-install(FILES config/kglobalshortcutsrc DESTINATION /etc/xdg)
+# No kglobalshortcutsrc here: a partial [kwin] group in /etc/xdg leaves every other
+# KWin shortcut (Alt+Tab, Alt+F4, ...) without a key
 install(FILES config/kwinrc DESTINATION /etc/xdg)
 install(FILES config/kwinrulesrc DESTINATION /etc/xdg)
 
