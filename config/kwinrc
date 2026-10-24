@@ -17,8 +17,10 @@ lingmo_scaleEnabled=true
 linglauncherEnabled=true
 
 
-[Effect-Blur]
-BlurStrength=15
+# KWin reads "Effect-blur" (the plugin id); the strength follows
+# Settings > Appearance > Glass (lingmo-core writes 7 / 11 / 15)
+[Effect-blur]
+BlurStrength=11
 NoiseStrength=0
 
 [Windows]

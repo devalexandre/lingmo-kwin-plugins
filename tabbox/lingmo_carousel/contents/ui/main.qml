@@ -115,6 +115,16 @@ KWin.TabBoxSwitcher {
             id: windowHelper
         }
 
+        // "Vidro Lingmo" (Settings > Appearance > Glass): KWin blurs the desktop
+        // behind the switcher, and the dimming gets lighter as the glass gets
+        // stronger. Glass off: the plain dimmed backdrop, no blur.
+        readonly property int glassLevel: LingmoUI.Theme.glassEnabled ? LingmoUI.Theme.glassLevel : 0
+
+        LingmoUI.WindowBlur {
+            view: dialog
+            enabled: dialog.glassLevel > 0 && dialog.visible
+        }
+
         // Window data by index, for the slots (the model has no index accessor in QML)
         Repeater {
             id: windows
@@ -156,7 +166,9 @@ KWin.TabBoxSwitcher {
                 id: backdrop
                 width: stage.width
                 height: stage.height
-                readonly property real topAlpha: dialog.compositing ? (tabBox.dark ? 0.62 : 0.55) : 1
+                readonly property real topAlpha: !dialog.compositing ? 1
+                                                 : tabBox.dark ? [0.62, 0.56, 0.48, 0.40][dialog.glassLevel]
+                                                               : [0.55, 0.50, 0.42, 0.34][dialog.glassLevel]
                 readonly property real floorAlpha: dialog.compositing ? 0.90 : 1
                 gradient: Gradient {
                     GradientStop { position: 0.0; color: dialog.shadeAlpha(backdrop.topAlpha) }
@@ -479,9 +491,10 @@ KWin.TabBoxSwitcher {
                     width: captionRow.width + 36
                     height: 48
                     radius: 24
-                    color: tabBox.dark ? Qt.rgba(1, 1, 1, 0.08) : Qt.rgba(1, 1, 1, 0.75)
+                    // A raised glass pill (Theme.glass* tokens)
+                    color: LingmoUI.Theme.glassRaisedColor
                     border.width: 1
-                    border.color: tabBox.dark ? Qt.rgba(1, 1, 1, 0.10) : Qt.rgba(0, 0, 0, 0.06)
+                    border.color: LingmoUI.Theme.glassBorderColor
                     visible: caption.win !== null
 
                     Row {
